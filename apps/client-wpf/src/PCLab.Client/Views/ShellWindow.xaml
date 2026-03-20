@@ -1,0 +1,166 @@
+<Window x:Class="PCLab.Client.Views.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PC Lab Lock Overlay"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        Topmost="True"
+        ShowInTaskbar="False"
+        Background="#E6171F2D"
+        Loaded="Window_OnLoaded"
+        Deactivated="Window_OnDeactivated">
+  <Grid Margin="48">
+    <Border MaxWidth="620"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="#F8FAFC"
+            CornerRadius="24"
+            Padding="36">
+      <Grid>
+        <Grid Visibility="{Binding IsLocked, Converter={StaticResource BooleanToVisibilityConverter}}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <StackPanel>
+            <TextBlock Text="School Computer Lab"
+                       Foreground="#1D4ED8"
+                       FontSize="16"
+                       FontWeight="Bold" />
+            <TextBlock Margin="0,10,0,0"
+                       Text="Student check-in required"
+                       Foreground="#0F172A"
+                       FontSize="32"
+                       FontWeight="SemiBold" />
+            <TextBlock Margin="0,14,0,0"
+                       Text="This prototype uses local mock data only. Enter a student ID and name, then click login to simulate a successful unlock flow."
+                       Foreground="#334155"
+                       FontSize="16"
+                       TextWrapping="Wrap" />
+          </StackPanel>
+
+          <StackPanel Grid.Row="1" Margin="0,28,0,0">
+            <TextBlock Text="Student ID"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Foreground="#0F172A" />
+            <TextBox Margin="0,8,0,0"
+                     Padding="14"
+                     FontSize="20"
+                     Text="{Binding StudentIdInput, UpdateSourceTrigger=PropertyChanged}" />
+          </StackPanel>
+
+          <StackPanel Grid.Row="2" Margin="0,18,0,0">
+            <TextBlock Text="Student name"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Foreground="#0F172A" />
+            <TextBox Margin="0,8,0,0"
+                     Padding="14"
+                     FontSize="20"
+                     Text="{Binding StudentNameInput, UpdateSourceTrigger=PropertyChanged}" />
+          </StackPanel>
+
+          <TextBlock Grid.Row="3"
+                     Margin="0,16,0,0"
+                     Text="{Binding ErrorMessage}"
+                     Foreground="#B91C1C"
+                     FontSize="14"
+                     TextWrapping="Wrap" />
+
+          <TextBlock Grid.Row="4"
+                     Margin="0,18,0,0"
+                     Text="{Binding StatusMessage}"
+                     Foreground="#475569"
+                     FontSize="14"
+                     TextWrapping="Wrap" />
+
+          <Button Grid.Row="5"
+                  Margin="0,28,0,0"
+                  Height="52"
+                  Command="{Binding LoginCommand}"
+                  Background="#1D4ED8"
+                  Foreground="White"
+                  FontSize="18"
+                  FontWeight="Bold"
+                  Content="Login" />
+        </Grid>
+
+        <Grid Visibility="{Binding IsUnlocked, Converter={StaticResource BooleanToVisibilityConverter}}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
+          <StackPanel>
+            <TextBlock Text="Prototype unlocked"
+                       Foreground="#047857"
+                       FontSize="16"
+                       FontWeight="Bold" />
+            <TextBlock Margin="0,10,0,0"
+                       Text="This PC is now in the simple unlocked state."
+                       Foreground="#0F172A"
+                       FontSize="30"
+                       FontWeight="SemiBold" />
+            <TextBlock Margin="0,14,0,0"
+                       Text="No backend, dashboard, or real session persistence is active in this milestone."
+                       Foreground="#334155"
+                       FontSize="16"
+                       TextWrapping="Wrap" />
+          </StackPanel>
+
+          <Border Grid.Row="1"
+                  Margin="0,28,0,0"
+                  Padding="18"
+                  Background="#E2E8F0"
+                  CornerRadius="16">
+            <StackPanel>
+              <TextBlock Text="Logged in student"
+                         Foreground="#334155"
+                         FontSize="14"
+                         FontWeight="Bold" />
+              <TextBlock Margin="0,10,0,0"
+                         Text="{Binding CurrentStudentName}"
+                         Foreground="#0F172A"
+                         FontSize="24"
+                         FontWeight="SemiBold" />
+              <TextBlock Margin="0,6,0,0"
+                         Text="{Binding CurrentStudentId}"
+                         Foreground="#475569"
+                         FontSize="16" />
+              <TextBlock Margin="0,10,0,0"
+                         Text="{Binding LoggedInAtText}"
+                         Foreground="#475569"
+                         FontSize="14" />
+            </StackPanel>
+          </Border>
+
+          <TextBlock Grid.Row="2"
+                     Margin="0,18,0,0"
+                     Text="{Binding StatusMessage}"
+                     Foreground="#475569"
+                     FontSize="14"
+                     TextWrapping="Wrap" />
+
+          <Button Grid.Row="3"
+                  Margin="0,28,0,0"
+                  Height="52"
+                  Command="{Binding LogoutCommand}"
+                  Background="#DC2626"
+                  Foreground="White"
+                  FontSize="18"
+                  FontWeight="Bold"
+                  Content="Logout" />
+        </Grid>
+      </Grid>
+    </Border>
+  </Grid>
+</Window>
