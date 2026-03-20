@@ -37,6 +37,8 @@ public sealed class LogoutResponse
 public sealed class CurrentSessionResponse
 {
     public RemoteActiveSession? ActiveSession { get; init; }
+
+    public string? Error { get; init; }
 }
 
 public sealed class RemoteActiveSession

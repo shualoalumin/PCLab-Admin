@@ -49,12 +49,30 @@ public sealed class ApiClient : IDisposable
 
         using HttpResponseMessage response = await _httpClient.GetAsync(requestUri, cancellationToken);
 
-        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        string content = await response.Content.ReadAsStringAsync(cancellationToken);
+        CurrentSessionResponse? currentSession = JsonSerializer.Deserialize<CurrentSessionResponse>(
+            content,
+            _jsonOptions);
+
+        if (currentSession is null)
         {
-            return new CurrentSessionResponse();
+            throw new InvalidOperationException("The server returned an empty response.");
         }
 
-        return await DeserializeResponseAsync<CurrentSessionResponse>(response, cancellationToken);
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            throw new InvalidOperationException(
+                string.IsNullOrWhiteSpace(currentSession.Error)
+                    ? "The device is not registered for this lab."
+                    : currentSession.Error);
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new InvalidOperationException(ExtractErrorMessage(content));
+        }
+
+        return currentSession;
     }
 
     public async Task<LogoutResponse> LogoutAsync(

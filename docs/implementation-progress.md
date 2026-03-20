@@ -207,3 +207,43 @@ Artifacts added for this routine:
 
 - `.cursor/rules/work-routine.mdc`
 - `docs/workflow-routine.md`
+
+## Debugging And Test Cycle
+
+### Problems debugged
+
+Adjusted the WPF client startup recovery path so unregistered devices no longer look like a normal empty session state.
+
+Updated:
+
+- `apps/client-wpf/src/PCLab.Client/Models/SessionContracts.cs`
+- `apps/client-wpf/src/PCLab.Client/Services/ApiClient.cs`
+
+Result:
+
+- `GET /api/client/current` device registration failures now surface as a clear startup error instead of being silently treated as "no active session"
+- the lab client remains fail-closed, but with a more accurate operator-facing message
+
+### Tests and validation run
+
+Added a lightweight TypeScript test suite for request payload parsing in:
+
+- `apps/admin-web/src/lib/validation/client.test.ts`
+
+Added a test script in:
+
+- `apps/admin-web/package.json`
+
+Validation completed:
+
+- `npm test`
+- `npm run lint`
+- `npm run build`
+
+Test coverage added for:
+
+- hostname normalization
+- MAC address normalization
+- check-in payload parsing
+- logout payload parsing
+- invalid input rejection cases
