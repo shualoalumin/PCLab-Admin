@@ -1,0 +1,17 @@
+node_modules/
+.next/
+dist/
+coverage/
+.env
+.env.local
+.env.*.local
+
+apps/admin-web/node_modules/
+apps/admin-web/.next/
+
+apps/client-wpf/**/bin/
+apps/client-wpf/**/obj/
+apps/client-wpf/**/.vs/
+
+.DS_Store
+Thumbs.db

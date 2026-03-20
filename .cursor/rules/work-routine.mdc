@@ -1,0 +1,16 @@
+---
+description: Project-wide work routine for planning, progress tracking, and push cadence
+alwaysApply: true
+---
+
+# Work Routine
+
+- Think broadly about the next step before implementing. Consider product impact, architecture fit, and follow-up work, not just the immediate code edit.
+- Keep progress managed through the existing work todo flow and move items deliberately as work advances.
+- When a work todo is completed, update a markdown progress document in `docs/` with:
+  - what was finished
+  - what changed
+  - what remains or any blockers
+- After documenting the completed todo, review git state, commit the completed work with a clear message, and push to the remote branch.
+- Prefer small, meaningful pushes that align with completed todo milestones.
+- If git state is unsafe for push, explain the issue clearly and stop for user direction rather than forcing it.
