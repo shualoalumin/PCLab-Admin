@@ -193,3 +193,17 @@ These remain intentionally within MVP constraints:
 5. Build the WPF client on a Windows machine with the .NET desktop workload installed.
 6. Register the Task Scheduler startup task for the shared lab account.
 7. Test the 1-PC pilot flow end to end.
+
+## Workflow Update
+
+Established a default project work routine for future tasks:
+
+- think broadly before choosing the next implementation step
+- manage progress through the work todo flow
+- update a markdown progress document in `docs/` whenever a work todo is completed
+- commit and push after each completed todo milestone when git state is safe
+
+Artifacts added for this routine:
+
+- `.cursor/rules/work-routine.mdc`
+- `docs/workflow-routine.md`
